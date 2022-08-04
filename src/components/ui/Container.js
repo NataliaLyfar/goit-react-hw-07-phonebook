@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import BackPic from 'asset/background.jpg';
+import { breakpoints } from "styleConfig/breakpoints";
+
 
 export const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 480px;
+  max-width: 480px; 
   min-height: 760px;
   max-height: 780px;
   margin: 0 auto;
@@ -20,4 +22,7 @@ export const Container = styled.div`
   font-family: ${p => p.theme.fonts.body};
   color: ${p => p.theme.colors.primary};
   overflow: auto;
+  @media (${breakpoints.mobile}) {
+  min-width: 370px;
+  };
   `;

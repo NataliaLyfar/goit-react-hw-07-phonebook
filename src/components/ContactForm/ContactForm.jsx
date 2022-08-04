@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
-import { initialValues, schema } from "constants";
+import * as yup from 'yup';
+import { yupPhoneValidation } from 'schema';
 import { Notify } from 'notiflix';
 import { FaUserPlus, FaPhoneAlt } from "react-icons/fa";
 import { Label } from "components/ui";
@@ -11,10 +12,19 @@ import {
  } from "redux/contacts/contactsApi";
 
 
-
 export const ContactForm = () => {
   const [createContact, { isLoading }] = useCreateContactsMutation();
   const { data } = useGetContactsQuery();
+
+  const initialValues = {
+    name: '',
+    phone: ''
+  };
+  
+  const schema = yup.object({
+    ...yupPhoneValidation,
+    name: yup.string().required(),
+  });
 
   const handleSubmit = (values, {resetForm}) => {
     const isContactExist = data.find(({name}) => name.toLowerCase() === values.name.toLowerCase());
